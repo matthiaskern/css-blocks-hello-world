@@ -67,7 +67,8 @@ module.exports = {
     new CssBlocksPlugin({
       analyzer,
       outputCssFile: 'bundle.css',
-      ...jsxCompilationOptions
+      compilationOptions: jsxCompilationOptions.compilationOptions,
+      optimization: jsxCompilationOptions.optimization
     })
   ],
   resolve: {
