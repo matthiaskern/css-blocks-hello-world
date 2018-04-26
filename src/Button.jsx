@@ -16,11 +16,11 @@ export default class Button extends Component {
   render() {
     const style = objstr({
       [styles]: true,
-      // [styles.active()]: this.state.isActive
+      [styles.active()]: this.state.isActive
     });
 
     return (
-      <button className={styles} onClick={this.toggleIsActive.bind(this)}>
+      <button className={style} onClick={this.toggleIsActive.bind(this)}>
         {this.state.isActive ? "Active" : "Inactive"}
       </button>
     );
