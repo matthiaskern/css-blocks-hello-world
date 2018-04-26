@@ -1,6 +1,8 @@
 const { Rewriter, Analyzer } = require('@css-blocks/jsx');
 const { CssBlocksPlugin } = require('@css-blocks/webpack');
 
+const cssBlocksRewriter = require('@css-blocks/jsx/dist/src/transformer/babel')
+
 const jsxCompilationOptions = {
   compilationOptions: {},
   optimization: {
@@ -28,12 +30,16 @@ module.exports = {
           {
             loader: require.resolve('babel-loader'),
             options: {
+              presets: ["env", "react", "stage-2"],
+              cacheDirectory: true,
+              compact: true
+            }
+          },
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
               plugins: [
-                require('@css-blocks/jsx/dist/src/transformer/babel').makePlugin(
-                  {
-                    rewriter
-                  }
-                )
+                cssBlocksRewriter.makePlugin({ rewriter })
               ],
               parserOpts: {
                 plugins: ['jsx']
@@ -48,10 +54,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /.css$/,
-        loader: require.resolve('file-loader')
       }
     ]
   },
@@ -59,7 +61,8 @@ module.exports = {
     new CssBlocksPlugin({
       analyzer,
       outputCssFile: 'bundle.css',
-      ...jsxCompilationOptions
+      compilationOptions: jsxCompilationOptions.compilationOptions,
+      optimization: jsxCompilationOptions.optimization
     })
   ],
   resolve: {
