@@ -54,10 +54,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /.css$/,
-        loader: require.resolve('file-loader')
       }
     ]
   },
