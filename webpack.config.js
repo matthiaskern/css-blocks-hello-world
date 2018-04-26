@@ -1,6 +1,8 @@
 const { Rewriter, Analyzer } = require('@css-blocks/jsx');
 const { CssBlocksPlugin } = require('@css-blocks/webpack');
 
+const cssBlocksRewriter = require('@css-blocks/jsx/dist/src/transformer/babel')
+
 const jsxCompilationOptions = {
   compilationOptions: {},
   optimization: {
@@ -37,11 +39,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               plugins: [
-                require('@css-blocks/jsx/dist/src/transformer/babel').makePlugin(
-                  {
-                    rewriter
-                  }
-                )
+                cssBlocksRewriter.makePlugin({ rewriter })
               ],
               parserOpts: {
                 plugins: ['jsx']
