@@ -28,6 +28,14 @@ module.exports = {
           {
             loader: require.resolve('babel-loader'),
             options: {
+              presets: ["env", "react", "stage-2"],
+              cacheDirectory: true,
+              compact: true
+            }
+          },
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
               plugins: [
                 require('@css-blocks/jsx/dist/src/transformer/babel').makePlugin(
                   {
